@@ -4,7 +4,7 @@ Lightweight Material PDF Annotator written using Qt/C++
 ## Troubleshooting (Users, Developers)
 ### Windows 
 
-* I have a Wacom tablet -- My tablet isn't being recognized: 
+* I have a Wacom or other name brand tablet -- My tablet isn't being recognized: 
 Some newer Wacom drivers don't include a wintab32.dll file which is necessary for Qt to receive tablet input. 
 Driver 6.3.31-4 is the newest Wacom driver (09/18) that officially supports this software. Download here: http://cdn.wacom.com/u/productsupport/drivers/win/professional/WacomTablet_6.3.31-4.exe
 
