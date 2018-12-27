@@ -14,7 +14,7 @@ Memory allocation isn't handled properly by the drivers that come with these tab
 
 ## Building 
 
-Use `git clone` to clone. Open Qt Creator and make a new project -- set the name to `pdf-marker` and set the directory to the directory of the local git repo, but up a level. (The directory the repo folder is in.) 
+Use `git clone` to clone. Open Qt Creator and open the directory that you cloned this repository to.
 
 External Dependencies: 
 
