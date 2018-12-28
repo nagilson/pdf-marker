@@ -20,7 +20,8 @@
    <string>PDF Marker</string>
   </property>
   <property name="windowIcon">
-   <iconset theme="pdfmarker.ico"/>
+   <iconset theme="pdfmarker.ico">
+    <normaloff>.</normaloff>.</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">selection-color: rgb(246, 248, 250);
@@ -29,6 +30,9 @@ border-left-color: rgb(20, 255, 169);</string>
   </property>
   <property name="toolButtonStyle">
    <enum>Qt::ToolButtonIconOnly</enum>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Triangular</enum>
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
@@ -40,14 +44,7 @@ border-left-color: rgb(20, 255, 169);</string>
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuwty">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="actionOpen"/>
-    <addaction name="actionSave"/>
-   </widget>
-   <widget class="QMenu" name="menuEdi">
+   <widget class="QMenu" name="menuEdit">
     <property name="title">
      <string>Edit</string>
     </property>
@@ -62,9 +59,36 @@ border-left-color: rgb(20, 255, 169);</string>
     <addaction name="separator"/>
     <addaction name="actionOptions"/>
    </widget>
-   <addaction name="menuwty"/>
-   <addaction name="menuEdi"/>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="actionSave"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
    <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="mouseTracking">
+    <bool>true</bool>
+   </property>
+   <property name="tabletTracking">
+    <bool>true</bool>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
   </widget>
   <action name="actionAbout">
    <property name="text">
