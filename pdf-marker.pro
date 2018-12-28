@@ -27,11 +27,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    tabletcanvas.cpp
+    tabletcanvas.cpp \
+    pdfannotatorapp.cpp
 
 HEADERS += \
         mainwindow.h \
-    tabletcanvas.h
+    tabletcanvas.h \
+    pdfannotatorapp.h
 
 FORMS += \
         mainwindow.ui

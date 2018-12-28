@@ -34,7 +34,7 @@ public:
     void setLineWidthType(const Valuator& type);
     void SetColor(const QColor& c);
     QColor color() const;
-    void setTabletDevice(QTabletEvent *event);
+    void setTabletDevice(const QTabletEvent *event);
     int maximum(const int& a, const int& b) const;
 
 protected:
@@ -48,7 +48,7 @@ private:
     Qt::BrushStyle brushPattern(const qreal& value);
     static qreal pressureToWidth(const qreal& pressure);
     void updateBrush(const QTabletEvent *event);
-    void updateCursor();
+    void updateCursor(const QTabletEvent *event);
 
     Valuator m_alphaChannelValuator;
     Valuator m_colorSaturationValuator;
@@ -64,6 +64,6 @@ private:
         qreal pressure;
         qreal rotation;
     } lastPoint;
-}; // Tablet Canvas Defintion
+};
 
 #endif // TABLETCANVAS_H

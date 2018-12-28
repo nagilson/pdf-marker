@@ -35,8 +35,8 @@ QColor TabletCanvas::color() const {
     return m_color;
 }
 
-void TabletCanvas::setTabletDevice(){
- { updateCursor(); }
+void TabletCanvas::setTabletDevice(const QTabletEvent *event){
+ { updateCursor(event); }
 }
 
 int TabletCanvas::maximum(const int &a, const int &b) const{
@@ -159,16 +159,18 @@ void TabletCanvas::updateBrush(const QTabletEvent *event){
     else m_pen.setColor(m_color);
 }
 
-void TabletCanvas::updateCursor(){
+void TabletCanvas::updateCursor(const QTabletEvent *event){
     QCursor cursor;
-    switch (m_tool) {
-        case Pen:
-        case Eraser:
-               // <!> update with cursor and dynamic cursor size
-            cursor = QCursor();
-            break;
-        case Highlighter:
-            cursor = QCursor();
+    if(event->type() != QEvent::TabletLeaveProximity){
+        switch (m_tool) {
+            case Pen:
+            case Eraser:
+                   // <!> update with cursor and dynamic cursor size
+                cursor = Qt::CrossCursor;
+                break;
+            case Highlighter:
+                cursor = QCursor();
+        }
     }
     setCursor((cursor));
 }
