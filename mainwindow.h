@@ -20,16 +20,12 @@ public:
     ~MainWindow();
 
 private slots:
-    void open();
-    void save();
-    void about();
-
     void on_actionAbout_triggered();
 
 private:
     Ui::MainWindow *ui;
 
-    TabletCanvas *m_canvas;
+    TabletCanvas *m_drawRegion;
     QColorDialog *m_colorDialog;
 };
 
