@@ -9,8 +9,8 @@ class PdfAnnotatorApp : public QApplication
     Q_OBJECT
 
     public:
-        PdfAnnotatorApp(int& argc, char **argv) :
-         QApplication(argc, argv) {}
+        PdfAnnotatorApp(int& argc, char **argv)
+            : QApplication(argc, argv) {}
         bool event(QEvent *event) override;
         void setDrawRegion(TabletCanvas *canvas);
 

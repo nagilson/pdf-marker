@@ -15,6 +15,21 @@ TabletCanvas::TabletCanvas()
     setAttribute(Qt::WA_TabletTracking);
 }
 
+TabletCanvas::TabletCanvas(QWidget *parent)
+  : QWidget(parent)
+  , m_alphaChannelValuator(NoValuator)
+  , m_colorSaturationValuator(NoValuator)
+  , m_lineWidthValuator(PressureValuator)
+  , m_color(Qt::black)
+  , m_pen(QBrush(m_color), 1.0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin)
+  , m_deviceDown(false)
+  , m_tool(Pen)
+{
+    resize(500, 500);
+    setAutoFillBackground(true);
+    setAttribute(Qt::WA_TabletTracking);
+}
+
 void TabletCanvas::setAlphaChannelValuator(const Valuator& type){
   m_alphaChannelValuator = type;
 }
@@ -83,7 +98,7 @@ void TabletCanvas::initPixmap()
     newPixmap.setDevicePixelRatio(dpr);
     newPixmap.fill(Qt::white);
     QPainter painter(&newPixmap);
-    if (!m_pixmap.isNull())
+    if (!m_pixmap.isNull())      
         painter.drawPixmap(0, 0, m_pixmap);
     painter.end();
     m_pixmap = newPixmap;

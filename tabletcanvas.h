@@ -28,6 +28,7 @@ public:
     Q_ENUM(Tool)
 
     TabletCanvas();
+    TabletCanvas(QWidget *parent);
 
     void setAlphaChannelValuator(const Valuator& type);
     void setColorSaturationValuator(const Valuator& type);

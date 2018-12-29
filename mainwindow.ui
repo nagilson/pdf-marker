@@ -34,7 +34,18 @@ border-left-color: rgb(20, 255, 169);</string>
   <property name="tabShape">
    <enum>QTabWidget::Triangular</enum>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="TabletCanvas" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>401</width>
+      <height>271</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
@@ -128,6 +139,14 @@ border-left-color: rgb(20, 255, 169);</string>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>TabletCanvas</class>
+   <extends>QWidget</extends>
+   <header>tabletcanvas.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

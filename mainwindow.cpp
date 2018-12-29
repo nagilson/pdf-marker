@@ -1,25 +1,21 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QMessageBox>
+class TabletCanvas;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    // --- Style ---
-    ui->menuBar->setNativeMenuBar(false);
-    // --- End Style ---
-    //setCentralWidget(m_drawRegion);
-     QCoreApplication::setAttribute(Qt::AA_CompressHighFrequencyEvents); // reduce lag
+    QCoreApplication::setAttribute(Qt::AA_CompressHighFrequencyEvents); // reduce lag
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-//<body style="background-color:powderblue;">
+
 void MainWindow::on_actionAbout_triggered()
 {
     QMessageBox::about(this, tr("PDF Marker 1.0 Beta"),
