@@ -1,8 +1,5 @@
 #include "mainwindow.h"
-#include "tabletcanvas.h"
-#include "pdfannotatorapp.h"
 #include <QApplication>
-
 
 void configureApp(QApplication& app);
 void styleApp(QApplication& app);

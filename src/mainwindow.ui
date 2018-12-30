@@ -102,6 +102,20 @@ border-left-color: rgb(20, 255, 169);</string>
     <bool>false</bool>
    </attribute>
   </widget>
+  <widget class="QToolBar" name="tabletToolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
   <action name="actionAbout">
    <property name="text">
     <string>About</string>

@@ -28,15 +28,22 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     tabletcanvas.cpp \
-    pdfannotatorapp.cpp
+    pdfannotatorapp.cpp \
+    lib/colorwheel.cpp \
+    menu_extra/colorpickerswatch.cpp
 
 HEADERS += \
         mainwindow.h \
     tabletcanvas.h \
-    pdfannotatorapp.h
+    pdfannotatorapp.h \
+    lib/colorwheel.h \
+    lib/colorwheel.h \
+    lib/colorwheel.h \
+    menu_extra/colorpickerswatch.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    menu_extra/colorpickerswatch.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -45,3 +52,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     images.qrc
+
+DISTFILES +=

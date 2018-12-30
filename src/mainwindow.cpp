@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QMessageBox>
 class TabletCanvas;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -8,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    colorPickerSwatch *colorPicker = new colorPickerSwatch();
+    ui->tabletToolBar->addWidget(colorPicker);
     QCoreApplication::setAttribute(Qt::AA_CompressHighFrequencyEvents); // reduce lag
 }
 
