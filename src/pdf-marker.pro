@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT += webenginewidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,16 +31,18 @@ SOURCES += \
     tabletcanvas.cpp \
     pdfannotatorapp.cpp \
     lib/colorwheel.cpp \
-    menu_extra/colorpickerswatch.cpp
+    menu_extra/colorpickerswatch.cpp \
+    lib/qpdflib/pdfjsbridge.cpp \
+    lib/qpdflib/qpdfwidget.cpp
 
 HEADERS += \
         mainwindow.h \
     tabletcanvas.h \
     pdfannotatorapp.h \
     lib/colorwheel.h \
-    lib/colorwheel.h \
-    lib/colorwheel.h \
-    menu_extra/colorpickerswatch.h
+    menu_extra/colorpickerswatch.h \
+    lib/qpdflib/pdfjsbridge.h \
+    lib/qpdflib/qpdfwidget.h
 
 FORMS += \
         mainwindow.ui \
@@ -51,6 +54,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    images.qrc
+    images.qrc \
+    lib/qpdflib/pdfview.qrc
 
 DISTFILES +=
