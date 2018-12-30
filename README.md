@@ -18,7 +18,7 @@ Use `git clone https://github.com/nagilson/pdf-marker/` to clone.
 Open Qt Creator and click `Open Project`, then locate the clone and open the .pro file.
 
 External Dependencies / Credits :
-
+Square Color Wheel: https://github.com/liuyanghejerry/Qt-Plus liuyanghejerry
 
 ### Troubleshooting
 #### Windows
