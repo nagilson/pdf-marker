@@ -184,8 +184,7 @@ void TabletCanvas::updateBrush(const QTabletEvent *event){
 }
 
 QCursor TabletCanvas::updateCursor(const QTabletEvent *event){
-    // <!> This function does not currently work, as Valuator m_tool is not updated before this function is called.
-    // Unfortunately, this function needs to return to the application
+    // <!> Functionality will need to be moved up to pdfannotatorapp
     QCursor cursor = QCursor();
     if(event->type() != QEvent::TabletLeaveProximity){
         if(event->pointerType() == QTabletEvent::Eraser)
