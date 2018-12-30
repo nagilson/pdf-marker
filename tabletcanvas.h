@@ -35,7 +35,7 @@ public:
     void setLineWidthType(const Valuator& type);
     void SetColor(const QColor& c);
     QColor color() const;
-    void setTabletDevice(const QTabletEvent *event);
+    QCursor setTabletDevice(const QTabletEvent *event);
     int maximum(const int& a, const int& b) const;
 
 protected:
@@ -49,7 +49,7 @@ private:
     Qt::BrushStyle brushPattern(const qreal& value);
     static qreal pressureToWidth(const qreal& pressure);
     void updateBrush(const QTabletEvent *event);
-    void updateCursor(const QTabletEvent *event);
+    QCursor updateCursor(const QTabletEvent *event);
 
     Valuator m_alphaChannelValuator;
     Valuator m_colorSaturationValuator;

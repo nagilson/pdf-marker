@@ -4,7 +4,8 @@
 bool PdfAnnotatorApp::event(QEvent *event){
     if (event->type() == QEvent::TabletEnterProximity ||
            event->type() == QEvent::TabletLeaveProximity) {
-           m_drawRegion->setTabletDevice(static_cast<QTabletEvent *>(event));
+           QCursor cursor = m_drawRegion->setTabletDevice(static_cast<QTabletEvent *>(event));
+           setOverrideCursor(cursor);
            return true;
        }
        return QApplication::event(event);

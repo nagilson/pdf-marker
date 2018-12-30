@@ -50,8 +50,8 @@ QColor TabletCanvas::color() const {
     return m_color;
 }
 
-void TabletCanvas::setTabletDevice(const QTabletEvent *event){
- { updateCursor(event); }
+QCursor TabletCanvas::setTabletDevice(const QTabletEvent *event){
+ { return updateCursor(event); }
 }
 
 int TabletCanvas::maximum(const int &a, const int &b) const{
@@ -73,6 +73,13 @@ void TabletCanvas::tabletEvent(QTabletEvent *event){
             if(m_deviceDown) {
                 updateBrush(event);
                 QPainter painter(&m_pixmap);
+                switch(m_tool){
+                    case Eraser:
+                        painter.setCompositionMode(QPainter::CompositionMode_Clear);
+                        break;
+                    default:
+                        painter.setCompositionMode((QPainter::CompositionMode_SourceOver));
+                }
                 paintPixmap(painter, event);
                 lastPoint.pos = event->posF();
                 lastPoint.pressure = event->pressure();
@@ -96,7 +103,7 @@ void TabletCanvas::initPixmap()
     // <!> Change later to match pdf size
     QPixmap newPixmap = QPixmap(width() * dpr, height() * dpr);
     newPixmap.setDevicePixelRatio(dpr);
-    newPixmap.fill(Qt::white);
+    newPixmap.fill(Qt::transparent);
     QPainter painter(&newPixmap);
     if (!m_pixmap.isNull())      
         painter.drawPixmap(0, 0, m_pixmap);
@@ -117,6 +124,8 @@ void TabletCanvas::paintPixmap(QPainter &painter, QTabletEvent *event){
     painter.setRenderHint(QPainter::Antialiasing);
     switch (event->device()) {
        case QTabletEvent::Stylus:
+       case QTabletEvent::RotationStylus:
+       case QTabletEvent::XFreeEraser:
            painter.setPen(m_pen);
            painter.drawLine(lastPoint.pos, event->posF());
            update(QRect(lastPoint.pos.toPoint(), event->pos()).normalized()
@@ -126,8 +135,6 @@ void TabletCanvas::paintPixmap(QPainter &painter, QTabletEvent *event){
        case QTabletEvent::Puck:
        case QTabletEvent::FourDMouse:
        case QTabletEvent::NoDevice:
-       case QTabletEvent::RotationStylus:
-       case QTabletEvent::XFreeEraser:
           std::cerr << "This input device is not supported.";
           break;
     }
@@ -166,28 +173,36 @@ void TabletCanvas::updateBrush(const QTabletEvent *event){
             m_pen.setWidthF(1);
     }
 
-    if(event->pointerType() == QTabletEvent::Eraser
-            || m_tool == Eraser){
-        m_pen.setColor(Qt::transparent);
-        m_pen.setWidthF((event->pressure() * 10 +1));
+    if(event->pointerType() == QTabletEvent::Eraser){
+        m_tool = Eraser;
+        m_pen.setWidthF((event->pressure() * 10 + 1));
     }
-    else m_pen.setColor(m_color);
+    else {
+        m_tool = Pen;
+        m_pen.setColor(m_color);
+    }
 }
 
-void TabletCanvas::updateCursor(const QTabletEvent *event){
-    QCursor cursor;
+QCursor TabletCanvas::updateCursor(const QTabletEvent *event){
+    // <!> This function does not currently work, as Valuator m_tool is not updated before this function is called.
+    // Unfortunately, this function needs to return to the application
+    QCursor cursor = QCursor();
     if(event->type() != QEvent::TabletLeaveProximity){
+        if(event->pointerType() == QTabletEvent::Eraser)
+        { cursor = Qt::CrossCursor; }
         switch (m_tool) {
             case Pen:
+                cursor = Qt::CrossCursor;
+                break;
             case Eraser:
                    // <!> update with cursor and dynamic cursor size
                 cursor = Qt::CrossCursor;
                 break;
             case Highlighter:
-                cursor = QCursor();
+                ;
         }
     }
-    setCursor((cursor));
+    return cursor;
 }
 
 void TabletCanvas::resizeEvent(QResizeEvent *)
