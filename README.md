@@ -19,6 +19,7 @@ Open Qt Creator and click `Open Project`, then locate the clone and open the .pr
 
 External Dependencies / Credits :
 Square Color Wheel: https://github.com/liuyanghejerry/Qt-Plus liuyanghejerry
+qpdf PDF viewer Widget: https://github.com/Archie3d/qpdf Archie3d
 
 ### Troubleshooting
 #### Windows
