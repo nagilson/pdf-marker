@@ -6,6 +6,7 @@
 
 QT       += core gui
 QT += webenginewidgets
+INCLUDEPATH += /src/lib/3rdparty/qpdfjs/src
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,14 +32,32 @@ SOURCES += \
     tabletcanvas.cpp \
     pdfannotatorapp.cpp \
     lib/colorwheel.cpp \
-    menu_extra/colorpickerswatch.cpp
+    menu_extra/colorpickerswatch.cpp \
+    lib/3rdparty/qpdfjs/release/moc_communicator.cpp \
+    lib/3rdparty/qpdfjs/release/moc_qpdfjswindow.cpp \
+    lib/3rdparty/qpdfjs/src/communicator.cpp \
+    lib/3rdparty/qpdfjs/src/qpdfjswindow.cpp \
+    lib/colorwheel.cpp \
+    menu_extra/colorpickerswatch.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    pdfannotatorapp.cpp \
+    tabletcanvas.cpp
 
 HEADERS += \
         mainwindow.h \
     tabletcanvas.h \
     pdfannotatorapp.h \
     lib/colorwheel.h \
-    menu_extra/colorpickerswatch.h
+    menu_extra/colorpickerswatch.h \
+    lib/3rdparty/qpdfjs/release/moc_predefs.h \
+    lib/3rdparty/qpdfjs/src/communicator.h \
+    lib/3rdparty/qpdfjs/src/qpdfjswindow.h \
+    lib/colorwheel.h \
+    menu_extra/colorpickerswatch.h \
+    mainwindow.h \
+    pdfannotatorapp.h \
+    tabletcanvas.h
 
 FORMS += \
         mainwindow.ui \
@@ -52,4 +71,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     images.qrc
 
-DISTFILES +=
+DISTFILES += \
+    lib/3rdparty/qpdfjs/empty.pdf \
+    empty.pdf

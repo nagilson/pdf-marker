@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include "lib/3rdparty/qpdfjs/src/qpdfjswindow.h"
 
 void configureApp(QApplication& app);
 void styleApp(QApplication& app);
@@ -9,6 +10,18 @@ int main(int argc, char *argv[])
     PdfAnnotatorApp a(argc, argv);
     TabletCanvas *drawRegion = new TabletCanvas;
     MainWindow w(drawRegion);
+
+    QString app_path = qApp->applicationDirPath();
+#ifdef Q_OS_MACOS
+    QDir app_path_dir(app_path);
+    app_path_dir.cdUp();
+    app_path_dir.cdUp();
+    app_path_dir.cdUp();
+    app_path = app_path_dir.absolutePath();
+#endif
+    QString pdf_path = app_path+"/empty.pdf";
+    QPdfJsWindow *pdfView = new QPdfJsWindow(pdf_path);
+    pdfView->show();
 
     a.setDrawRegion(drawRegion);
     configureApp(a);
