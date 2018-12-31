@@ -8,7 +8,6 @@
 #include <menu_extra/colorpickerswatch.h>
 #include "pdfannotatorapp.h"
 #include "tabletcanvas.h"
-#include <lib/qpdflib/qpdfwidget.h>
 
 QT_BEGIN_NAMESPACE
 class QColorDialog;

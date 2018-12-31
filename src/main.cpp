@@ -9,13 +9,11 @@ int main(int argc, char *argv[])
     PdfAnnotatorApp a(argc, argv);
     TabletCanvas *drawRegion = new TabletCanvas;
     MainWindow w(drawRegion);
-    QPdfWidget pdf(nullptr);
 
     a.setDrawRegion(drawRegion);
     configureApp(a);
     w.show();
     w.setWindowState(Qt::WindowMaximized);
-    pdf.show(); // Show PDF viewer in separate window
     return a.exec();
 }
 
