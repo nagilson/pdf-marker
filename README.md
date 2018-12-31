@@ -17,9 +17,12 @@ Memory allocation isn't handled properly by the drivers that come with these tab
 Use `git clone https://github.com/nagilson/pdf-marker/` to clone.
 Open Qt Creator and click `Open Project`, then locate the clone and open the .pro file.
 
-External Dependencies / Credits :
-Square Color Wheel: https://github.com/liuyanghejerry/Qt-Plus liuyanghejerry
-qpdf PDF viewer Widget: https://github.com/Archie3d/qpdf Archie3d
+External Dependencies / Credits:
+* ColorWheel (Square Dialogue Wheel): https://github.com/liuyanghejerry/Qt-Plus liuyanghejerry\
+ ... This comes with the project, and you won't need to do anything special to build it. 
+
+* QtLabs-QtPDF (PDF Viewer): http://code.qt.io/cgit/qt-labs/qtpdf.git Qt\
+ ... Follow the build instructions at http://blog.qt.io/blog/2017/01/30/new-qtpdf-qtlabs-module/.
 
 ### Troubleshooting
 #### Windows
