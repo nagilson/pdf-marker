@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include "lib/3rdparty/qpdfjs/src/qpdfjswindow.h"
+#include <QDir>
+#include <fstream>
 
 void configureApp(QApplication& app);
 void styleApp(QApplication& app);
@@ -21,8 +23,12 @@ int main(int argc, char *argv[])
 #endif
     QString pdf_path = app_path+"/empty.pdf";
     QPdfJsWindow *pdfView = new QPdfJsWindow(pdf_path);
+    std::string pdf_paths(pdf_path.toLatin1().constData());
+    std::fstream fin(pdf_paths);
+    if(fin.good())
+    {
     pdfView->show();
-
+}
     a.setDrawRegion(drawRegion);
     configureApp(a);
     w.show();

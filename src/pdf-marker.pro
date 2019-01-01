@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui widgets
 QT += webenginewidgets
 INCLUDEPATH += /src/lib/3rdparty/qpdfjs/src
 
@@ -33,16 +33,8 @@ SOURCES += \
     pdfannotatorapp.cpp \
     lib/colorwheel.cpp \
     menu_extra/colorpickerswatch.cpp \
-    lib/3rdparty/qpdfjs/release/moc_communicator.cpp \
-    lib/3rdparty/qpdfjs/release/moc_qpdfjswindow.cpp \
     lib/3rdparty/qpdfjs/src/communicator.cpp \
     lib/3rdparty/qpdfjs/src/qpdfjswindow.cpp \
-    lib/colorwheel.cpp \
-    menu_extra/colorpickerswatch.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    pdfannotatorapp.cpp \
-    tabletcanvas.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -54,10 +46,6 @@ HEADERS += \
     lib/3rdparty/qpdfjs/src/communicator.h \
     lib/3rdparty/qpdfjs/src/qpdfjswindow.h \
     lib/colorwheel.h \
-    menu_extra/colorpickerswatch.h \
-    mainwindow.h \
-    pdfannotatorapp.h \
-    tabletcanvas.h
 
 FORMS += \
         mainwindow.ui \
@@ -72,5 +60,20 @@ RESOURCES += \
     images.qrc
 
 DISTFILES += \
-    lib/3rdparty/qpdfjs/empty.pdf \
-    empty.pdf
+    lib/3rdparty/qpdfjs/minified/web/pdf.viewer.js \
+    lib/3rdparty/qpdfjs/minified/web/qwebchannel.js \
+    lib/3rdparty/qpdfjs/minified/web/viewer.css \
+    lib/3rdparty/qpdfjs/minified/web/viewer.html \
+    lib/3rdparty/qpdfjs/minified/build/pdf.js \
+    lib/3rdparty/qpdfjs/minified/build/pdf.worker.js
+
+CONFIG += debug_and_release
+!debug_and_release|build_pass {
+        CONFIG(debug, debug|release) {
+                        TARGET = qpdfjsd
+                        DESTDIR = $$PWD
+         } else {
+                        TARGET = qpdfjs
+                        DESTDIR = $$PWD
+         }
+}
