@@ -1,5 +1,7 @@
 #include "tabletcanvas.h"
 
+#include <iostream>
+
 TabletCanvas::TabletCanvas()
   : QWidget(nullptr)
   , m_alphaChannelValuator(NoValuator)
@@ -52,10 +54,6 @@ QColor TabletCanvas::color() const {
 
 QCursor TabletCanvas::setTabletDevice(const QTabletEvent *event){
  { return updateCursor(event); }
-}
-
-int TabletCanvas::maximum(const int &a, const int &b) const{
-    return a > b ? a : b;
 }
 
 void TabletCanvas::tabletEvent(QTabletEvent *event){

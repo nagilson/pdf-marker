@@ -10,7 +10,6 @@
 #include <QPen>
 #include <QPoint>
 #include <QPainter>
-#include <iostream>
 
 QT_BEGIN_NAMESPACE
 class QPaintEvent;
@@ -36,7 +35,6 @@ public:
     void SetColor(const QColor& c);
     QColor color() const;
     QCursor setTabletDevice(const QTabletEvent *event);
-    int maximum(const int& a, const int& b) const;
 
 protected:
     void tabletEvent(QTabletEvent *event) override;

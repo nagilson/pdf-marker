@@ -1,8 +1,8 @@
 #ifndef PDFANNOTATORAPP_H
 #define PDFANNOTATORAPP_H
 
-#include <QApplication>
 #include "tabletcanvas.h"
+#include <QApplication>
 
 class PdfAnnotatorApp : public QApplication
 {

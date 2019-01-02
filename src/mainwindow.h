@@ -1,13 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QApplication>
-#include <QMessageBox>
-#include <lib/colorwheel.h>
+#include <lib/3rdparty/colorwheel.h>
 #include <menu_extra/colorpickerswatch.h>
 #include "pdfannotatorapp.h"
 #include "tabletcanvas.h"
+
+#include <QMainWindow>
+#include <QApplication>
 
 QT_BEGIN_NAMESPACE
 class QColorDialog;

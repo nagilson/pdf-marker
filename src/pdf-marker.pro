@@ -31,7 +31,7 @@ SOURCES += \
         mainwindow.cpp \
     tabletcanvas.cpp \
     pdfannotatorapp.cpp \
-    lib/colorwheel.cpp \
+    lib/3rdparty/colorwheel.cpp \
     menu_extra/colorpickerswatch.cpp \
     lib/3rdparty/qpdfjs/src/communicator.cpp \
     lib/3rdparty/qpdfjs/src/qpdfjswindow.cpp \
@@ -40,12 +40,11 @@ HEADERS += \
         mainwindow.h \
     tabletcanvas.h \
     pdfannotatorapp.h \
-    lib/colorwheel.h \
+    lib/3rdparty/colorwheel.h \
     menu_extra/colorpickerswatch.h \
     lib/3rdparty/qpdfjs/release/moc_predefs.h \
     lib/3rdparty/qpdfjs/src/communicator.h \
     lib/3rdparty/qpdfjs/src/qpdfjswindow.h \
-    lib/colorwheel.h \
 
 FORMS += \
         mainwindow.ui \

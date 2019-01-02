@@ -1,5 +1,6 @@
-#include <QtWidgets>
 #include "pdfannotatorapp.h"
+
+#include <QtWidgets>
 
 bool PdfAnnotatorApp::event(QEvent *event){
     if (event->type() == QEvent::TabletEnterProximity ||

@@ -1,4 +1,3 @@
-
 #include <QTimer>
 #include <QApplication>
 #include <QWebEngineView>
@@ -7,7 +6,7 @@
 #include <QDir>
 
 #include "qpdfjswindow.h"
-#include "communicator.h"
+#include "qpdfjs/src/communicator.h"
 
 QPdfJsWindow::QPdfJsWindow(QWidget *parent) :
     QWidget(parent)
