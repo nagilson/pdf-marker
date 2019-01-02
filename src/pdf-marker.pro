@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui widgets
+QT += core gui widgets
 QT += webenginewidgets
 INCLUDEPATH += /src/lib/3rdparty/qpdfjs/src
 
@@ -70,10 +70,10 @@ DISTFILES += \
 CONFIG += debug_and_release
 !debug_and_release|build_pass {
         CONFIG(debug, debug|release) {
-                        TARGET = qpdfjsd
+                        TARGET = pdf-marker
                         DESTDIR = $$PWD
          } else {
-                        TARGET = qpdfjs
+                        TARGET = pdf-marker
                         DESTDIR = $$PWD
          }
 }

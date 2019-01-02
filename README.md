@@ -19,10 +19,10 @@ Open Qt Creator and click `Open Project`, then locate the clone and open the .pr
 
 External Dependencies / Credits:
 * ColorWheel (Square Dialogue Wheel): https://github.com/liuyanghejerry/Qt-Plus liuyanghejerry\
- ... This comes with the project, and you won't need to do anything special to build it. 
+ ... This comes with the project, and you won't need to do anything special to build it.
 
-* QtLabs-QtPDF (PDF Viewer): http://code.qt.io/cgit/qt-labs/qtpdf.git Qt\
- ... Follow the build instructions at http://blog.qt.io/blog/2017/01/30/new-qtpdf-qtlabs-module/.
+* QPdfJsWindow (PDF Viewer): https://github.com/yshurik/qpdfjs yshurik\
+ ... You'll have to download this code yourself and simply put it into the project in the lib/3rdparty folder. When copying, be sure to keep our version of qpdfjswindow.h and .cpp, which is outside the qpdfjs folder. In case the link is deprecated, contact one of the devs.
 
 ### Troubleshooting
 #### Windows

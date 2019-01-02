@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     colorPickerSwatch *colorPicker = new colorPickerSwatch();
     ui->tabletToolBar->addWidget(colorPicker);
+
     QCoreApplication::setAttribute(Qt::AA_CompressHighFrequencyEvents); // reduce lag
 }
 

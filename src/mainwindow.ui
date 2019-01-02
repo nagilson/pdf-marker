@@ -35,15 +35,25 @@ border-left-color: rgb(20, 255, 169);</string>
    <enum>QTabWidget::Triangular</enum>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="TabletCanvas" name="widget" native="true">
+   <widget class="QPdfJsWindow" name="pdfViewer" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>401</width>
+      <width>391</width>
       <height>271</height>
      </rect>
     </property>
+    <widget class="TabletCanvas" name="drawRegion" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>391</width>
+       <height>271</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -158,6 +168,12 @@ border-left-color: rgb(20, 255, 169);</string>
    <class>TabletCanvas</class>
    <extends>QWidget</extends>
    <header>tabletcanvas.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>QPdfJsWindow</class>
+   <extends>QWidget</extends>
+   <header>lib/3rdparty/qpdfjs/src/qpdfjswindow.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

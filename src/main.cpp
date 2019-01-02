@@ -22,13 +22,7 @@ int main(int argc, char *argv[])
     app_path = app_path_dir.absolutePath();
 #endif
     QString pdf_path = app_path+"/empty.pdf";
-    QPdfJsWindow *pdfView = new QPdfJsWindow(pdf_path);
-    std::string pdf_paths(pdf_path.toLatin1().constData());
-    std::fstream fin(pdf_paths);
-    if(fin.good())
-    {
-    pdfView->show();
-}
+    //QPdfJsWindow *pdfView = new QPdfJsWindow(pdf_path);
     a.setDrawRegion(drawRegion);
     configureApp(a);
     w.show();
@@ -41,8 +35,7 @@ void configureApp(QApplication& app){
 }
 
 void styleApp(QApplication& app){
-    QString style = "QWidget { background: rgb(64, 69, 82) }"
-                    "QTextEdit { background : rgb(32, 36, 44) }"
+    QString style = "QTextEdit { background : rgb(32, 36, 44) }"
                     "QToolBar { color: white; background: rgb(49, 55, 66) }"
                     "QMenuBar { color: white; background: rgb(32, 36, 44);"
                         "font-family: 'Arial'; font-size: 14px}"
