@@ -22,7 +22,7 @@ External Dependencies / Credits:
  ... This comes with the project, and you won't need to do anything special to build it.
 
 * QPdfJsWindow (PDF Viewer): https://github.com/yshurik/qpdfjs yshurik\
- ... You'll have to download this code yourself and simply put it into the project in the lib/3rdparty folder. When copying, be sure to keep our version of qpdfjswindow.h and .cpp, which is outside the qpdfjs folder. In case the link is deprecated, contact one of the devs.
+ ... You'll have to download this code yourself and simply put it into the project in the lib/3rdparty folder. When copying, be sure to keep our version of qpdfjswindow.h and .cpp, which is outside the qpdfjs folder. Or, if you'd like, download the source folder here: https://drive.google.com/open?id=19TrlOHB0StXXQYMJCSyQEa9nZzNaESpx which was the version used while this project was in development.
 
 ### Troubleshooting
 #### Windows
