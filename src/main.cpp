@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include <QApplication>
-#include "lib/3rdparty/qpdfjs/src/qpdfjswindow.h"
 
 #include <QDir>
 
@@ -9,16 +8,19 @@ void styleApp(QApplication& app);
 
 int main(int argc, char *argv[])
 {
-    QVector<QWidget *> windows;
     PdfAnnotatorApp a(argc, argv);
-    TabletCanvas *drawRegion = new TabletCanvas;
     MainWindow w;
+    TabletCanvas *drawRegion = w.m_drawRegion;
+    QPdfJsWindow *pdfViewer = w.m_pdfViewer;
+
     a.setDrawRegion(drawRegion);
     configureApp(a);
+
     w.show();
     w.setWindowState(Qt::WindowMaximized);
-    //windows.push_back()
-    return a.exec();
+
+    auto result = a.exec();
+    return result;
 }
 
 void configureApp(QApplication& app){
@@ -26,7 +28,7 @@ void configureApp(QApplication& app){
 }
 
 void styleApp(QApplication& app){
-    QString style = "QWidget { background: rgb(64, 64, 64) }"
+    QString style = "QMainWindow { background: rgb(64, 64, 64) }"
                     "QTextEdit { background : rgb(32, 36, 44) }"
                     "QToolBar { color: white; background: rgb(47, 49, 51) }"
                     "QMenuBar { color: white; background: rgb(32, 36, 44);"
@@ -36,6 +38,7 @@ void styleApp(QApplication& app){
                     "QMenu::item:selected { color: white; background: rgb(49, 55, 66) }"
                     "QDialog { color: white }"
                     "QPushButton { color: rgb(49, 55, 66); background: white;  }"
-                    "QMessageBox { background: rgb(32, 36, 44); messagebox-text-interaction-flags: 5; }";
+                    "QMessageBox { background: rgb(32, 36, 44); messagebox-text-interaction-flags: 5; }"
+                    "QMessageBox QLabel { color: rgb(200, 200, 200); }";
      app.setStyleSheet((style));
 }

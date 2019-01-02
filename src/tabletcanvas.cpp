@@ -10,6 +10,7 @@ TabletCanvas::TabletCanvas()
   , m_color(Qt::black)
   , m_pen(QBrush(m_color), 1.0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin)
   , m_deviceDown(false)
+  , saved(true)
   , m_tool(Pen)
 {
     resize(500, 500);
@@ -25,11 +26,30 @@ TabletCanvas::TabletCanvas(QWidget *parent)
   , m_color(Qt::black)
   , m_pen(QBrush(m_color), 1.0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin)
   , m_deviceDown(false)
+  , saved(true)
   , m_tool(Pen)
 {
     resize(500, 500);
     setAutoFillBackground(true);
     setAttribute(Qt::WA_TabletTracking);
+}
+
+void TabletCanvas::wipe(){
+    m_pixmap.fill(Qt::transparent);
+    saved = true;
+}
+
+void TabletCanvas::setSaveState(const bool &state){
+    saved = state;
+}
+
+bool TabletCanvas::getSaveState(){
+    return saved;
+}
+
+bool TabletCanvas::isClear(){
+    QPixmap clear_map = m_pixmap; clear_map.fill(Qt::transparent);
+    return m_pixmap == clear_map;
 }
 
 void TabletCanvas::setAlphaChannelValuator(const Valuator& type){

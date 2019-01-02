@@ -47,9 +47,9 @@ border-left-color: rgb(20, 255, 169);</string>
     <widget class="TabletCanvas" name="drawRegion" native="true">
      <property name="geometry">
       <rect>
-       <x>290</x>
-       <y>0</y>
-       <width>511</width>
+       <x>250</x>
+       <y>30</y>
+       <width>621</width>
        <height>621</height>
       </rect>
      </property>

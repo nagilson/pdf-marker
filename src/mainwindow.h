@@ -3,6 +3,7 @@
 
 #include <lib/3rdparty/colorwheel.h>
 #include <menu_extra/colorpickerswatch.h>
+#include "lib/3rdparty/qpdfjs/src/qpdfjswindow.h"
 #include "pdfannotatorapp.h"
 #include "tabletcanvas.h"
 
@@ -29,11 +30,15 @@ public:
 private slots:
     void on_actionAbout_triggered();
 
+    void on_actionOpen_triggered();
+
 private:
     Ui::MainWindow *ui;
-
-    TabletCanvas *m_drawRegion;
     QColorDialog *m_colorDialog;
+
+public:
+    QPdfJsWindow *m_pdfViewer;
+    TabletCanvas *m_drawRegion;
 };
 
 #endif // MAINWINDOW_H

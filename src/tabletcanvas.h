@@ -29,6 +29,10 @@ public:
     TabletCanvas();
     TabletCanvas(QWidget *parent);
 
+    void wipe();
+    void setSaveState(const bool& state);
+    bool getSaveState();
+    bool isClear();
     void setAlphaChannelValuator(const Valuator& type);
     void setColorSaturationValuator(const Valuator& type);
     void setLineWidthType(const Valuator& type);
@@ -56,6 +60,7 @@ private:
     QPixmap m_pixmap;
     QPen m_pen;
     bool m_deviceDown;
+    bool saved;
     Tool m_tool;
 
     struct Point {

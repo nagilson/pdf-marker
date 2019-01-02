@@ -7,12 +7,17 @@ class QWebEngineView;
 class Communicator;
 
 class QPdfJsWindow : public QWidget {
-	Q_OBJECT
-	QWebEngineView * m_webView;
-	Communicator * m_communicator;
-public:
-    explicit QPdfJsWindow(QWidget *parent = nullptr);
-	~QPdfJsWindow();
+    private:
+        Q_OBJECT
+        QWebEngineView * m_webView;
+        Communicator * m_communicator;
+
+    public:
+        explicit QPdfJsWindow(QWidget *parent = nullptr);
+        ~QPdfJsWindow();
+        void redirect(const QString& path);
+        bool activated();
+
 };
 
 #endif

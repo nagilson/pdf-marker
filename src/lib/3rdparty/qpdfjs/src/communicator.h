@@ -4,11 +4,13 @@
 #include <QObject>
 
 class Communicator : public QObject {
+private:
 	Q_OBJECT
 	Q_PROPERTY(QString url READ url WRITE setUrl NOTIFY urlChanged)
 	QString m_url;
+
 public:
-	explicit Communicator(QObject * p = nullptr) : QObject(p) {}
+    explicit Communicator(QObject *p = nullptr) : QObject(p) {}
 
 	QString url() const { return m_url; }
 	void setUrl(const QString &url);
