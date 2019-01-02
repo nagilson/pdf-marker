@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>1046</width>
+    <height>645</height>
    </rect>
   </property>
   <property name="font">
@@ -40,17 +40,17 @@ border-left-color: rgb(20, 255, 169);</string>
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>391</width>
-      <height>271</height>
+      <width>1041</width>
+      <height>611</height>
      </rect>
     </property>
     <widget class="TabletCanvas" name="drawRegion" native="true">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>290</x>
        <y>0</y>
-       <width>391</width>
-       <height>271</height>
+       <width>511</width>
+       <height>621</height>
       </rect>
      </property>
     </widget>
@@ -61,7 +61,7 @@ border-left-color: rgb(20, 255, 169);</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>1046</width>
      <height>21</height>
     </rect>
    </property>

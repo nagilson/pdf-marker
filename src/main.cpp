@@ -9,13 +9,15 @@ void styleApp(QApplication& app);
 
 int main(int argc, char *argv[])
 {
+    QVector<QWidget *> windows;
     PdfAnnotatorApp a(argc, argv);
     TabletCanvas *drawRegion = new TabletCanvas;
-    MainWindow w(drawRegion);
+    MainWindow w;
     a.setDrawRegion(drawRegion);
     configureApp(a);
     w.show();
     w.setWindowState(Qt::WindowMaximized);
+    //windows.push_back()
     return a.exec();
 }
 
