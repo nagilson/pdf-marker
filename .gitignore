@@ -30,6 +30,8 @@
 *.exe
 *.out
 *.app
+*.ilk
+*.pdb
 
 # Save States
 *.autosave
