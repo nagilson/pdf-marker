@@ -23,6 +23,7 @@ External Dependencies / Credits:
 
 * QPdfJsWindow (PDF Viewer): https://github.com/yshurik/qpdfjs yshurik\
  ... This comes with the project. We have made some modifications to the library.
+ For this 3rd party lib to work, you need QWebEngine. To get this, open the QT Maintenance Tool and then add the component.
 
 ### Troubleshooting
 #### Windows
@@ -31,3 +32,9 @@ External Dependencies / Credits:
 Build using MSVC2017 and not MinGW.
 If you didn't add MSVC during installation, open the QT Maintenance Tool and then
 add the component.
+
+* When I build the program, I am missing files? 
+Go to Projects (on the left toolbar in Qt Creator) and go to Build and uncheck Shadow build.)
+
+* The PDF Viewer disappears when I use my tablet near it? 
+Try updating your Tablet Drivers! Use the link provided above.

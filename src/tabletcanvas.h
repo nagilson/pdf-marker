@@ -10,6 +10,8 @@
 #include <QPen>
 #include <QPoint>
 #include <QPainter>
+#include <stack>
+#include <QUndoCommand>
 
 QT_BEGIN_NAMESPACE
 class QPaintEvent;
@@ -18,56 +20,86 @@ QT_END_NAMESPACE
 
 class TabletCanvas : public QWidget
 {
-    Q_OBJECT
 
-public:
-    enum Valuator { PressureValuator, NoValuator };
-    enum Tool { Pen, Eraser, Highlighter };
-    Q_ENUM(Valuator)
-    Q_ENUM(Tool)
+    public:
+       struct Point {
+           Point();
+           Point(const QPointF& pos, const qreal& pressure, const qreal& rotation, const QColor& color);
+           QPointF pos;
+           qreal pressure;
+           qreal rotation;
+           QColor color;
+       };
 
-    TabletCanvas();
-    TabletCanvas(QWidget *parent);
+    private:
+       using BrushStroke = std::vector<TabletCanvas::Point>;
+       struct BrushStrokeAction : QUndoCommand {
+           BrushStrokeAction(TabletCanvas& canvas);
+           void undo() override;
+           void redo() override;
+           void setPen(QPen& pen);
+           QPen getPen();
+           void addPaintedPixel(const Point pixel);
+           void addRestorablePixel(const Point pixel);
+           void emptyStrokeAction();
+           private:
+               QPen pen;
+               TabletCanvas *draw_region;
+               BrushStroke restore_region;
+               BrushStroke paint_region;
+       };
+       friend struct BrushStrokeAction;
 
-    void wipe();
-    void setSaveState(const bool& state);
-    bool getSaveState();
-    bool isClear();
-    void setAlphaChannelValuator(const Valuator& type);
-    void setColorSaturationValuator(const Valuator& type);
-    void setLineWidthType(const Valuator& type);
-    void SetColor(const QColor& c);
-    QColor color() const;
-    QCursor setTabletDevice(const QTabletEvent *event);
+        Q_OBJECT
 
-protected:
-    void tabletEvent(QTabletEvent *event) override;
-    void paintEvent(QPaintEvent *event) override;
-    void resizeEvent(QResizeEvent *event) override;
+    public:
+        enum Valuator { PressureValuator, NoValuator };
+        enum Tool { Pen, Eraser, Highlighter };
+        Q_ENUM(Valuator)
+        Q_ENUM(Tool)
 
-private:
-    void initPixmap();
-    void paintPixmap(QPainter &painter, QTabletEvent *event);
-    Qt::BrushStyle brushPattern(const qreal& value);
-    static qreal pressureToWidth(const qreal& pressure);
-    void updateBrush(const QTabletEvent *event);
-    QCursor updateCursor(const QTabletEvent *event);
+        TabletCanvas();
+        TabletCanvas(QWidget *parent);
 
-    Valuator m_alphaChannelValuator;
-    Valuator m_colorSaturationValuator;
-    Valuator m_lineWidthValuator;
-    QColor m_color;
-    QPixmap m_pixmap;
-    QPen m_pen;
-    bool m_deviceDown;
-    bool saved;
-    Tool m_tool;
+        void wipe();
+        void undo();
+        void redo();
+        void setSaveState(const bool& state);
+        bool getSaveState();
+        bool isClear();
+        void setAlphaChannelValuator(const Valuator& type);
+        void setColorSaturationValuator(const Valuator& type);
+        void setLineWidthType(const Valuator& type);
+        void setColor(const QColor& c);
+        QColor getColor() const;
+        QCursor setTabletDevice(const QTabletEvent *event);
 
-    struct Point {
-        QPointF pos;
-        qreal pressure;
-        qreal rotation;
-    } lastPoint;
+    protected:
+        void tabletEvent(QTabletEvent *event) override;
+        void paintEvent(QPaintEvent *event) override;
+        void resizeEvent(QResizeEvent *event) override;
+
+    private:
+        void initPixmap();
+        void paintPixmap(QPainter &painter, QTabletEvent *event);
+        void paintPixmap(QPainter &painter, BrushStroke stroke, const QPen& pen);
+        Qt::BrushStyle brushPattern(const qreal& value);
+        static qreal pressureToWidth(const qreal& pressure);
+        void updateBrush(const QTabletEvent *event);
+        QCursor updateCursor(const QTabletEvent *event);
+
+        Valuator m_alphaChannelValuator;
+        Valuator m_colorSaturationValuator;
+        Valuator m_lineWidthValuator;
+        QColor m_color;
+        QPixmap m_pixmap;
+        QPen m_pen;
+        bool m_deviceDown;
+        bool m_saved;
+        Tool m_tool;
+        Point lastPoint;
+        QUndoStack m_undoStack; // also handles redo
+        BrushStrokeAction m_currentBrushStrokeAction;
 };
 
 #endif // TABLETCANVAS_H

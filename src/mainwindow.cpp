@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->m_drawRegion = ui->drawRegion;
     this->m_pdfViewer = ui->pdfViewer;
-    m_pdfViewer->hide();
 }
 
 MainWindow::~MainWindow()
@@ -57,4 +56,14 @@ void MainWindow::on_actionOpen_triggered()
             m_pdfViewer->show();
         }
     }
+}
+
+void MainWindow::on_actionUndo_triggered()
+{
+    m_drawRegion->undo();
+}
+
+void MainWindow::on_actionRedo_triggered()
+{
+    m_drawRegion->redo();
 }

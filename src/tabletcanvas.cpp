@@ -1,6 +1,54 @@
 #include "tabletcanvas.h"
 
 #include <iostream>
+using BrushStroke = std::vector<TabletCanvas::Point>;
+
+TabletCanvas::Point::Point(){
+    ;
+}
+
+TabletCanvas::Point::Point(const QPointF& pos, const qreal& pressure, const qreal& rotation, const QColor& color)
+  : pos(pos)
+  , pressure(pressure)
+  , rotation(rotation)
+  , color(color) {
+    ;
+}
+
+TabletCanvas::BrushStrokeAction::BrushStrokeAction(TabletCanvas& canvas){
+    draw_region = &canvas;
+}
+
+void TabletCanvas::BrushStrokeAction::undo() {
+    QPainter painter(draw_region);
+    draw_region->paintPixmap(painter, restore_region, pen);
+}
+
+void TabletCanvas::BrushStrokeAction::redo() {
+    QPainter painter(draw_region);
+    draw_region->paintPixmap(painter, paint_region, pen);
+}
+
+void TabletCanvas::BrushStrokeAction::setPen(QPen& pen){
+    this->pen = pen;
+}
+
+QPen TabletCanvas::BrushStrokeAction::getPen(){
+    return pen;
+}
+
+void TabletCanvas::BrushStrokeAction::addPaintedPixel(const Point pixel){
+    restore_region.push_back(pixel);
+}
+
+void TabletCanvas::BrushStrokeAction::addRestorablePixel(const Point pixel){
+    paint_region.push_back(pixel);
+}
+
+void TabletCanvas::BrushStrokeAction::emptyStrokeAction(){
+    paint_region.clear();
+    restore_region.clear();
+}
 
 TabletCanvas::TabletCanvas()
   : QWidget(nullptr)
@@ -10,12 +58,14 @@ TabletCanvas::TabletCanvas()
   , m_color(Qt::black)
   , m_pen(QBrush(m_color), 1.0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin)
   , m_deviceDown(false)
-  , saved(true)
+  , m_saved(true)
   , m_tool(Pen)
+  , m_currentBrushStrokeAction(*this)
 {
     resize(500, 500);
     setAutoFillBackground(true);
     setAttribute(Qt::WA_TabletTracking);
+    m_undoStack.setUndoLimit(15);
 }
 
 TabletCanvas::TabletCanvas(QWidget *parent)
@@ -26,25 +76,39 @@ TabletCanvas::TabletCanvas(QWidget *parent)
   , m_color(Qt::black)
   , m_pen(QBrush(m_color), 1.0, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin)
   , m_deviceDown(false)
-  , saved(true)
+  , m_saved(true)
   , m_tool(Pen)
+  , m_currentBrushStrokeAction(*this)
 {
     resize(500, 500);
     setAutoFillBackground(true);
     setAttribute(Qt::WA_TabletTracking);
+    m_undoStack.setUndoLimit(15);
 }
 
 void TabletCanvas::wipe(){
     m_pixmap.fill(Qt::transparent);
-    saved = true;
+    m_saved = true;
+}
+
+void TabletCanvas::undo(){
+    if(m_undoStack.canUndo()){
+        m_undoStack.undo();
+    }
+}
+
+void TabletCanvas::redo(){
+    if(m_undoStack.canRedo()){
+        m_undoStack.redo();
+    }
 }
 
 void TabletCanvas::setSaveState(const bool &state){
-    saved = state;
+    m_saved = state;
 }
 
 bool TabletCanvas::getSaveState(){
-    return saved;
+    return m_saved;
 }
 
 bool TabletCanvas::isClear(){
@@ -64,11 +128,11 @@ void TabletCanvas::setLineWidthType(const Valuator& type){
     m_lineWidthValuator = type;
 }
 
-void TabletCanvas::SetColor(const QColor &c){
+void TabletCanvas::setColor(const QColor &c){
     if (c.isValid()) m_color = c;
 }
 
-QColor TabletCanvas::color() const {
+QColor TabletCanvas::getColor() const {
     return m_color;
 }
 
@@ -84,10 +148,13 @@ void TabletCanvas::tabletEvent(QTabletEvent *event){
                 lastPoint.pos = event->posF();
                 lastPoint.pressure = event->pressure();
                 lastPoint.rotation = event->rotation();
+                lastPoint.color = m_color;
             }
+            m_currentBrushStrokeAction.setPen(m_pen);
             // Tablet is being pressed but pen isn't moving
             break;
         case QEvent::TabletMove:
+
             if(m_deviceDown) {
                 updateBrush(event);
                 QPainter painter(&m_pixmap);
@@ -98,16 +165,33 @@ void TabletCanvas::tabletEvent(QTabletEvent *event){
                     default:
                         painter.setCompositionMode((QPainter::CompositionMode_SourceOver));
                 }
+
+                // Get the current pixel on the map so we can undo
+                Point uneditedPixel(
+                    event->posF(),
+                    event->pressure(),
+                    event->rotation(),
+                    m_pixmap.toImage().pixel(event->posF().x(), event->posF().y())
+                );
+                m_currentBrushStrokeAction.addRestorablePixel(uneditedPixel);
+
+                // Paint to the map and add the edited pixel so we can redo
                 paintPixmap(painter, event);
+
                 lastPoint.pos = event->posF();
                 lastPoint.pressure = event->pressure();
                 lastPoint.rotation = event->rotation();
+                lastPoint.color = painter.pen().color();
+
+                m_currentBrushStrokeAction.addPaintedPixel(lastPoint);
             }
             break;
         case QEvent::TabletRelease:
             if (m_deviceDown && event->buttons() == Qt::NoButton)
                 m_deviceDown = false;
             update();
+            m_undoStack.push(&m_currentBrushStrokeAction);
+            m_currentBrushStrokeAction.emptyStrokeAction();
             break;
         default:
             break;
@@ -155,6 +239,19 @@ void TabletCanvas::paintPixmap(QPainter &painter, QTabletEvent *event){
        case QTabletEvent::NoDevice:
           std::cerr << "This input device is not supported.";
           break;
+    }
+}
+
+void TabletCanvas::paintPixmap(QPainter &painter, BrushStroke stroke, const QPen& pen){
+    static qreal maxPenRadius = pressureToWidth(1.0);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(pen);
+    auto startingPixel = stroke.begin();
+    auto endingPixel = startingPixel + 1;
+    for(; endingPixel != stroke.end(); ++endingPixel, ++startingPixel){
+        painter.drawLine(startingPixel->pos, endingPixel->pos);
+        update(QRect(startingPixel->pos.toPoint(), endingPixel->pos.toPoint()).normalized()
+               .adjusted(-maxPenRadius, -maxPenRadius, maxPenRadius, maxPenRadius));
     }
 }
 
