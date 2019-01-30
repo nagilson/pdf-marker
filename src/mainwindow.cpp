@@ -60,7 +60,7 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::on_actionUndo_triggered()
 {
-    m_drawRegion->undo();
+   // m_drawRegion->undo(); Removed, raised as issue
 }
 
 void MainWindow::on_actionRedo_triggered()
